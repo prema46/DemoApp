@@ -21,14 +21,11 @@ describe ('Place my order', () =>{
     it('Proceed to checkout', async()=>{
         await catalogPage.updateAddressDetails();
         await  catalogPage.updatePaymentDetails();
-        const pageHeader = await this.headerText.getText();
-        console.log(pageHeader);
-        await driver.saveScreenshot('screenshots/checkout.png');
     })
     it('Sign out', async()=>{
-
+        await MenuPage.openMenu();
+        await loginPage.goToLogoutPage();
        await  driver.deleteSession();
-        await driver.terminateApp('app/android/Android.MyDemoAppRN.apk');
     })
 
 })
