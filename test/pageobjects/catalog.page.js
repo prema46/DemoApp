@@ -60,13 +60,13 @@ class CatalogPage {
         return $(locatorHelper('Address Line 1* input field'))
     }
     get addressField() {
-        return $(locatorHelper('Address Line 2* input field'))
+        return $(locatorHelper('Address Line 2 input field'))
     }
     get cityField() {
         return $(locatorHelper('City* input field'))
     }
     get stateField() {
-        return $(locatorHelper('State/Region* input field'))
+        return $(locatorHelper('State/Region input field'))
     }
     get zipcodeField() {
         return $(locatorHelper('Zip Code* input field'))
@@ -79,21 +79,24 @@ class CatalogPage {
     }
 
     get cardNumberField(){
-        return $(locatorHelper('Card Number'))
+        return $(locatorHelper('Card Number* input field'))
     }
     get expDate(){
-        return $(locatorHelper('Expiration Date'))
+        return $(locatorHelper('Expiration Date* input field'))
     }
     get secCode(){
-        return $(locatorHelper('Security Code'))
+        return $(locatorHelper('Security Code* input field'))
     }
     get orderReview(){
-        return $(locatorHelper(' Review Order button'))
+        return $(locatorHelper('Review Order button'))
     }
     get placeOrder(){
-        return $(locatorHelper(' Place Order button'))
+        return $(locatorHelper('Place Order button'))
     }
 
+    get checkoutComplete(){
+        return $(locatorHelper('checkout complete screen')+'/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[1]');
+    }
     /** methods
      *
      * @returns {Promise<void>}
@@ -135,7 +138,7 @@ class CatalogPage {
     async updateAddressDetails(){
         await this.nameField.addValue('Rebecca Winter');
         await this.addressField1.addValue('Mandorrley 112');
-        //await this.addressField.addValue('Entrance 1');
+        await this.addressField.addValue('Entrance 1');
         await this.cityField.addValue('Truro');
         await this.stateField.addValue('Cornwall');
         await  this.zipcodeField.addValue('89750');
@@ -143,12 +146,16 @@ class CatalogPage {
         await this.toPayment.click();
     }
     async updatePaymentDetails(){
-        await this.nameField.sendKeys("Rebecca Winter");
-        await this.cardNumberField.sendKeys("5555 5555 5555 4444");
-        await this.expDate.sendKeys("03/25");
-        await this.secCode.sendKeys("123");
+        await this.nameField.addValue('Rebecca Winter');
+        await this.cardNumberField.addValue('5555 5555 5555 4444');
+        await this.expDate.addValue('03/25');
+        await this.secCode.addValue('123');
         await this.orderReview.click();
-        await this.placeOrder();
+        await this.placeOrder.click();
+        await driver.saveScreenshot('screenshots/checkoutin.png');
+        const pageHeader = await this.checkoutComplete.getText();
+        console.log("Header:"+ pageHeader);
+
     }
 
 
