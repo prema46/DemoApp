@@ -25,7 +25,7 @@ export const config = {
     // will be called from there.
     //
     specs: [
-        './test/specs/**/checkOut.e2e.js'
+        './test/specs/**/**.js'
     ],
     // Patterns to exclude.
     exclude: [
